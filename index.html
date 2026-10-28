@@ -1,409 +1,312 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan de Trabajo: Hospital Virtual - Módulo Quirófano</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        pm: {
-                            light: '#f3e8ff',
-                            DEFAULT: '#9333ea',
-                            dark: '#6b21a8',
-                            border: '#d8b4fe'
-                        },
-                        bio: {
-                            light: '#ecfdf5',
-                            DEFAULT: '#10b981',
-                            dark: '#047857',
-                            border: '#6ee7b7'
-                        },
-                        arq: {
-                            light: '#fff7ed',
-                            DEFAULT: '#f97316',
-                            dark: '#c2410c',
-                            border: '#ffedd5'
-                        },
-                        dev: {
-                            light: '#f0f9ff',
-                            DEFAULT: '#0284c7',
-                            dark: '#0369a1',
-                            border: '#bae6fd'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom Styles & Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        .task-checkbox:checked + span {
-            text-decoration: line-through;
-            color: #94a3b8;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Virtual - Módulo Quirófano | Plan de Trabajo</title>
+    <!-- Tailwind CSS desde CDN para estilos modernos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col">
+<body class="bg-slate-900 text-slate-100 min-h-screen">
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl z-50 flex items-center space-x-3 pointer-events-none">
-        <i data-lucide="check-circle" class="text-emerald-400 w-5 h-5"></i>
-        <span id="toast-message" class="text-sm font-medium">¡Notificación!</span>
-    </div>
+    <!-- HEADER / BARRA SUPERIOR -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-blue-600/20 text-blue-400 rounded-xl border border-blue-500/30">
+                    <i class="fa-solid font-bold fa-hospital-user text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide text-white">Hospital Virtual — Módulo Quirófano</h1>
+                    <p class="text-xs text-slate-400">Planificación de Trabajo & Matriz de Células (Google Drive Integración)</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full font-medium flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Estado: En Marcha (Fase 1)
+                </span>
+            </div>
+        </div>
+    </header>
 
-    <!-- Header Section -->
-    <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white border-b border-slate-700/50 sticky top-0 z-40 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <div class="flex items-center space-x-3">
-                        <span class="px-2.5 py-1 text-xs font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30 flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            Fase 1: En Carga
-                        </span>
-                        <span class="text-xs text-slate-400 font-mono">Ecosistema Google Drive + Local App</span>
-                    </div>
-                    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-1">
--                         Hospital Virtual <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Módulo Quirófano
-</span>
-                    </h1>
-                    <p class="text-sm text-slate-300 mt-1 max-w-2xl">
-                        Plan de Trabajo Interactivo por Células especializadas. Presiona las tareas para marcar avance o filtra según tu área.
-                    </p>
-                </div>
-                
-                <div class="flex items-center space-x-3 self-start md:self-auto">
-                    <button onclick="copySummaryToClipboard()" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all shadow-md hover:shadow-indigo-500/25 active:scale-95">
-                        <i data-lucide="share-2" class="w-4 h-4"></i>
-                        <span>Copiar Resumen WSP</span>
-                    </button>
-                </div>
-            </div>
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10">
 
-            <!-- Global Progress Bar -->
-            <div class="mt-6 pt-4 border-t border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div class="flex items-center space-x-3 w-full sm:w-2/3">
-                    <span class="text-xs font-semibold text-slate-300 whitespace-nowrap">Progreso General del Plan:</span>
-                    <div class="w-full bg-slate-700/70 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-600">
-                        <div id="global-progress-bar" class="bg-gradient-to-r from-emerald-400 to-cyan-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <span id="global-progress-text" class="text-xs font-bold text-emerald-400 font-mono">0% Completado</span>
-                    <span id="global-task-count" class="text-xs text-slate-400 ml-1">(0/24 Tareas)</span>
-                </div>
-            </div>
-        </div>
-    </header>
+        <!-- RESUMEN GENERAL / CARDS SUPERIORES -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-5 flex items-center gap-4">
+                <div class="p-3 bg-purple-500/10 text-purple-400 rounded-lg">
+                    <i class="fa-solid fa-users text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-400 uppercase">Equipo Total</p>
+                    <p class="text-xl font-bold text-white">9 Integrantes</p>
+                    <p class="text-[11px] text-slate-400">Estudiantes + Arq. + Bioing.</p>
+                </div>
+            </div>
 
-    <!-- Main Content Container -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+            <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-5 flex items-center gap-4">
+                <div class="p-3 bg-blue-500/10 text-blue-400 rounded-lg">
+                    <i class="fa-solid fa-layer-group text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-400 uppercase">Organización</p>
+                    <p class="text-xl font-bold text-white">3 Células + PM</p>
+                    <p class="text-[11px] text-slate-400">Trabajo enfocado y en paralelo</p>
+                </div>
+            </div>
 
-        <!-- Filter & Search Controls -->
-        <section class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-            <div class="flex items-center space-x-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2">Filtrar:</span>
-                <button onclick="filterGroup('all')" id="btn-filter-all" class="filter-btn active px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-900 text-white transition-all whitespace-nowrap shadow-sm">
-                    Todas las Células
-                </button>
-                <button onclick="filterGroup('pm')" id="btn-filter-pm" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-pm-light hover:text-pm-dark transition-all whitespace-nowrap">
-                    🟣 Célula 0: PM
-                </button>
-                <button onclick="filterGroup('bio')" id="btn-filter-bio" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-bio-light hover:text-bio-dark transition-all whitespace-nowrap">
-                    🟢 Célula 1: Bioingeniería
-                </button>
-                <button onclick="filterGroup('arq')" id="btn-filter-arq" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-arq-light hover:text-arq-dark transition-all whitespace-nowrap">
-                    🟠 Célula 2: Arquitectura
-                </button>
-                <button onclick="filterGroup('dev')" id="btn-filter-dev" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-dev-light hover:text-dev-dark transition-all whitespace-nowrap">
-                    🔵 Célula 3: Software
-                </button>
-            </div>
+            <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-5 flex items-center gap-4">
+                <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg">
+                    <i class="fa-brands fa-google-drive text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-400 uppercase">Ecosistema PM</p>
+                    <p class="text-xl font-bold text-white">100% Google Drive</p>
+                    <p class="text-[11px] text-slate-400">Sheets, Docs y Forms</p>
+                </div>
+            </div>
 
-            <div class="relative min-w-[220px]">
-                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                <input type="text" id="task-search" oninput="searchTasks()" placeholder="Buscar tarea o norma..." class="w-full pl-9 pr-4 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
-            </div>
-        </section>
+            <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-5 flex items-center gap-4">
+                <div class="p-3 bg-amber-500/10 text-amber-400 rounded-lg">
+                    <i class="fa-solid fa-[#fa-laptop-code] fa-laptop-code text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-400 uppercase">Entregable Final</p>
+                    <p class="text-xl font-bold text-white">App Exec 2D Local</p>
+                    <p class="text-[11px] text-slate-400">Plataforma Offline Interactiva</p>
+                </div>
+            </div>
+        </section>
 
-        <!-- CARDS GRID - CÉLULAS DE TRABAJO -->
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" id="cells-container">
+        <!-- SECCIÓN DE CÉLULAS Y TAREAS -->
+        <section class="space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-sitemap text-blue-500"></i>
+                        Estructura de Trabajo por Células
+                    </h2>
+                    <p class="text-sm text-slate-400">Tareas específicas y responsables asignados para cada módulo.</p>
+                </div>
+            </div>
 
-            <!-- CÉLULA 0: PM Y COORDINACIÓN -->
-            <div class="cell-card group-pm bg-white rounded-2xl border-2 border-pm-border/60 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col" data-group="pm">
-                <!-- Card Header -->
-                <div class="p-5 bg-gradient-to-br from-pm-light/80 to-white border-b border-pm-border/40">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center space-x-3">
-                            <div class="p-2.5 bg-pm text-white rounded-xl shadow-md shadow-pm/20">
-                                <i data-lucide="users" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <span class="text-xs font-bold uppercase tracking-wider text-pm-dark">Célula 0</span>
-                                <h3 class="text-lg font-bold text-slate-900">PM & Coordinación</h3>
-                            </div>
-                        </div>
-                        <span class="px-2.5 py-1 text-xs font-semibold bg-pm-light text-pm-dark rounded-full border border-pm-border">
-                            1 Estudiante
-                        </span>
-                    </div>
-                    <p class="text-xs text-slate-600 mt-2">Gestión del tablero, control de entregables en Drive y flujo de comunicación entre áreas.</p>
-                </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                <!-- Card Body / Task List -->
-                <div class="p-5 flex-grow space-y-3">
-                    <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
-                        <span>ACTIVIDADES PRINCIPALES</span>
-                        <span class="cell-counter font-mono" id="counter-pm">0/5</span>
-                    </div>
+                <!-- CÉLULA 1 -->
+                <div class="bg-slate-800/40 border border-slate-700/80 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-600 transition">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="px-2.5 py-1 text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-md">
+                                CÉLULA 01
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-users mr-1"></i> 4 Integrantes</span>
+                        </div>
 
-                    <ul class="space-y-2.5" id="list-pm">
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('pm-1')">
-                            <input type="checkbox" id="pm-1" class="task-checkbox mt-0.5 h-4 w-4 text-pm rounded border-slate-300 focus:ring-pm cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Configuración de estructura base y permisos de carpetas (00 a 03) en Google Drive.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('pm-2')">
-                            <input type="checkbox" id="pm-2" class="task-checkbox mt-0.5 h-4 w-4 text-pm rounded border-slate-300 focus:ring-pm cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Creación y actualización del Tablero Kanban semanal en Google Sheets.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('pm-3')">
-                            <input type="checkbox" id="pm-3" class="task-checkbox mt-0.5 h-4 w-4 text-pm rounded border-slate-300 focus:ring-pm cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Coordinación de reuniones semanales cortas (30 min) y registro de minutas.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('pm-4')">
-                            <input type="checkbox" id="pm-4" class="task-checkbox mt-0.5 h-4 w-4 text-pm rounded border-slate-300 focus:ring-pm cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Control del cumplimiento de entregables y desbloqueo de dependencias inter-grupos.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('pm-5')">
-                            <input type="checkbox" id="pm-5" class="task-checkbox mt-0.5 h-4 w-4 text-pm rounded border-slate-300 focus:ring-pm cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Gestión del Google Form para el reporte unificado de inconsistencias y QA.</span>
-                        </li>
-                    </ul>
-                </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-heart-pulse text-emerald-400"></i>
+                                Contenido Técnico y Normativas
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-1">Relevamiento de equipos, instalaciones clínicas y riesgos de Quirófano.</p>
+                        </div>
 
-                <!-- Card Footer -->
-                <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                    <span class="flex items-center gap-1.5"><i data-lucide="folder" class="w-3.5 h-3.5 text-pm"></i> 00_GESTION</span>
-                    <span class="font-mono text-pm-dark font-medium">Tablero_Control.gsheet</span>
-                </div>
-            </div>
+                        <!-- Perfiles -->
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 space-y-1">
+                            <p class="text-xs font-semibold text-emerald-300">Composición del Grupo:</p>
+                            <p class="text-xs text-slate-300"> • <strong>2 Bioingenieros/as</strong> (Líderes Técnicos)</p>
+                            <p class="text-xs text-slate-400"> • <strong>2 Estudiantes</strong> (Apoyo y Carga de Datos)</p>
+                        </div>
 
-            <!-- CÉLULA 1: BIOINGENIERÍA, NORMAS Y RIESGOS -->
-            <div class="cell-card group-bio bg-white rounded-2xl border-2 border-bio-border/60 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col" data-group="bio">
-                <!-- Card Header -->
-                <div class="p-5 bg-gradient-to-br from-bio-light/80 to-white border-b border-bio-border/40">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center space-x-3">
-                            <div class="p-2.5 bg-bio text-white rounded-xl shadow-md shadow-bio/20">
-                                <i data-lucide="activity" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <span class="text-xs font-bold uppercase tracking-wider text-bio-dark">Célula 1</span>
-                                <h3 class="text-lg font-bold text-slate-900">Bioingeniería, Normas & Riesgos</h3>
-                            </div>
-                        </div>
-                        <span class="px-2.5 py-1 text-xs font-semibold bg-bio-light text-bio-dark rounded-full border border-bio-border">
-                            2 Bioing + 2 Est.
-                        </span>
-                    </div>
-                    <p class="text-xs text-slate-600 mt-2">Definición técnica de equipos, redes de gases, parámetros de aislamiento y matriz de peligro.</p>
-                </div>
+                        <!-- Tareas -->
+                        <div class="space-y-2 pt-2">
+                            <p class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Bloque de Actividades:</p>
+                            <ul class="space-y-2 text-xs text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+                                    <span>Estandarizar fichas técnicas para Máquina de Anestesia, Monitores, Cielíticas y Mesas.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+                                    <span>Relevar parámetros de Gases Medicinal (O2, Aire, Vacío) y Tableros de Aislamiento (IT).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+                                    <span>Asociar normativas técnicas (ISO, IEC, NFPA) y matriz de riesgos/peligros en Sheets.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-                <!-- Card Body / Task List -->
-                <div class="p-5 flex-grow space-y-3">
-                    <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
-                        <span>ACTIVIDADES PRINCIPALES</span>
-                        <span class="cell-counter font-mono" id="counter-bio">0/7</span>
-                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700/50 flex justify-between items-center text-xs text-slate-400">
+                        <span><i class="fa-solid fa-folder text-amber-400 mr-1"></i> Drive: <code>01_CONTENIDO_TECNICO</code></span>
+                    </div>
+                </div>
 
-                    <ul class="space-y-2.5" id="list-bio">
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('bio-1')">
-                            <input type="checkbox" id="bio-1" class="task-checkbox mt-0.5 h-4 w-4 text-bio rounded border-slate-300 focus:ring-bio cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Inventario y relevamiento técnico de equipos e instalaciones de Quirófano.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('bio-2')">
-                            <input type="checkbox" id="bio-2" class="task-checkbox mt-0.5 h-4 w-4 text-bio rounded border-slate-300 focus:ring-bio cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Estandarización del formato de Fichas Técnicas en Google Sheets.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('bio-3')">
-                            <input type="checkbox" id="bio-3" class="task-checkbox mt-0.5 h-4 w-4 text-bio rounded border-slate-300 focus:ring-bio cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Mapeo de parámetros eléctricos: Tablero de Aislamiento 1:1, corrientes de fuga e IT.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('bio-4')">
-                            <input type="checkbox" id="bio-4" class="task-checkbox mt-0.5 h-4 w-4 text-bio rounded border-slate-300 focus:ring-bio cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Mapeo de Gases Medicinales (O2, Aire, Vacío, presiones y conectores DISS/NIST).</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('bio-5')">
-                            <input type="checkbox" id="bio-5" class="task-checkbox mt-0.5 h-4 w-4 text-bio rounded border-slate-300 focus:ring-bio cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Asociación de Normativas de Seguridad (IEC 60364-7-710, ISO 7396-1, ISO 80601-2-13).</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('bio-6')">
-                            <input type="checkbox" id="bio-6" class="task-checkbox mt-0.5 h-4 w-4 text-bio rounded border-slate-300 focus:ring-bio cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Elaboración de la Matriz de Riesgos y Peligros por componente.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('bio-7')">
-                            <input type="checkbox" id="bio-7" class="task-checkbox mt-0.5 h-4 w-4 text-bio rounded border-slate-300 focus:ring-bio cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Carga masiva de datos y revisión de calidad de información cargada.</span>
-                        </li>
-                    </ul>
-                </div>
+                <!-- CÉLULA 2 -->
+                <div class="bg-slate-800/40 border border-slate-700/80 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-600 transition">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="px-2.5 py-1 text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded-md">
+                                CÉLULA 02
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-users mr-1"></i> 2 Integrantes</span>
+                        </div>
 
-                <!-- Card Footer -->
-                <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                    <span class="flex items-center gap-1.5"><i data-lucide="folder" class="w-3.5 h-3.5 text-bio"></i> 01_CONTENIDO_TECNICO</span>
-                    <span class="font-mono text-bio-dark font-medium">Master_Fichas.gsheet</span>
-                </div>
-            </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-compass-drafting text-blue-400"></i>
+                                Planos, Layout y Diseño 2D
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-1">Adecuación gráfica de planos e interfaz interactiva del usuario.</p>
+                        </div>
 
-            <!-- CÉLULA 2: ARQUITECTURA, PLANOS Y UX 2D -->
-            <div class="cell-card group-arq bg-white rounded-2xl border-2 border-arq-border/60 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col" data-group="arq">
-                <!-- Card Header -->
-                <div class="p-5 bg-gradient-to-br from-arq-light/80 to-white border-b border-arq-border/40">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center space-x-3">
-                            <div class="p-2.5 bg-arq text-white rounded-xl shadow-md shadow-arq/20">
-                                <i data-lucide="compass" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <span class="text-xs font-bold uppercase tracking-wider text-arq-dark">Célula 2</span>
-                                <h3 class="text-lg font-bold text-slate-900">Arquitectura, Planos & UX 2D</h3>
-                            </div>
-                        </div>
-                        <span class="px-2.5 py-1 text-xs font-semibold bg-arq-light text-arq-dark rounded-full border border-arq-border">
-                            1 Arq + 1 Est.
-                        </span>
-                    </div>
-                    <p class="text-xs text-slate-600 mt-2">Adecuación de planos CAD, exportación de capas vectoriales y mapeo de coordenadas clicables.</p>
-                </div>
+                        <!-- Perfiles -->
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 space-y-1">
+                            <p class="text-xs font-semibold text-blue-300">Composición del Grupo:</p>
+                            <p class="text-xs text-slate-300"> • <strong>1 Arquitecto/a</strong> (Líder de Infraestructura)</p>
+                            <p class="text-xs text-slate-400"> • <strong>1 Estudiante</strong> (Diseño / Apoyo CAD)</p>
+                        </div>
 
-                <!-- Card Body / Task List -->
-                <div class="p-5 flex-grow space-y-3">
-                    <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
-                        <span>ACTIVIDADES PRINCIPALES</span>
-                        <span class="cell-counter font-mono" id="counter-arq">0/6</span>
-                    </div>
+                        <!-- Tareas -->
+                        <div class="space-y-2 pt-2">
+                            <p class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Bloque de Actividades:</p>
+                            <ul class="space-y-2 text-xs text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-blue-400 mt-0.5"></i>
+                                    <span>Limpiar planos CAD del Quirófano y exportar vectores/imágenes limpias (SVG/PNG).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-blue-400 mt-0.5"></i>
+                                    <span>Mapear coordenadas (Hotspots) sobre el plano para habilitar puntos interactivos.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-blue-400 mt-0.5"></i>
+                                    <span>Diseñar layout de pantalla para las fichas emergentes y menú de navegación local.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-                    <ul class="space-y-2.5" id="list-arq">
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('arq-1')">
-                            <input type="checkbox" id="arq-1" class="task-checkbox mt-0.5 h-4 w-4 text-arq rounded border-slate-300 focus:ring-arq cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Limpieza y simplificación de capas en planos CAD originales del hospital.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('arq-2')">
-                            <input type="checkbox" id="arq-2" class="task-checkbox mt-0.5 h-4 w-4 text-arq rounded border-slate-300 focus:ring-arq cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Ajuste de escala y delimitación del recinto específico del Quirófano.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('arq-3')">
-                            <input type="checkbox" id="arq-3" class="task-checkbox mt-0.5 h-4 w-4 text-arq rounded border-slate-300 focus:ring-arq cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Exportación de layouts en formatos optimizados (SVG vectorial / PNG transparente).</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('arq-4')">
-                            <input type="checkbox" id="arq-4" class="task-checkbox mt-0.5 h-4 w-4 text-arq rounded border-slate-300 focus:ring-arq cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Mapeo de coordenadas relative (X,Y Hotspots) de cada elemento sobre el plano.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('arq-5')">
-                            <input type="checkbox" id="arq-5" class="task-checkbox mt-0.5 h-4 w-4 text-arq rounded border-slate-300 focus:ring-arq cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Diseño UI de Pop-ups y ventanas emergentes para lectura de fichas en Google Docs.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('arq-6')">
-                            <input type="checkbox" id="arq-6" class="task-checkbox mt-0.5 h-4 w-4 text-arq rounded border-slate-300 focus:ring-arq cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Guía de colores, simbología y estados de criticidad visual.</span>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700/50 flex justify-between items-center text-xs text-slate-400">
+                        <span><i class="fa-solid fa-folder text-amber-400 mr-1"></i> Drive: <code>02_GRAFICOS_Y_PLANOS</code></span>
+                    </div>
+                </div>
 
-                <!-- Card Footer -->
-                <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                    <span class="flex items-center gap-1.5"><i data-lucide="folder" class="w-3.5 h-3.5 text-arq"></i> 02_PLANOS_Y_GRAFICOS</span>
-                    <span class="font-mono text-arq-dark font-medium">Hotspots_Layout.gsheet</span>
-                </div>
-            </div>
+                <!-- CÉLULA 3 -->
+                <div class="bg-slate-800/40 border border-slate-700/80 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-600 transition">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="px-2.5 py-1 text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/30 rounded-md">
+                                CÉLULA 03
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-users mr-1"></i> 2 Integrantes</span>
+                        </div>
 
-            <!-- CÉLULA 3: DESARROLLO SOFTWARE Y BASE DE DATOS LOCAL -->
-            <div class="cell-card group-dev bg-white rounded-2xl border-2 border-dev-border/60 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col" data-group="dev">
-                <!-- Card Header -->
-                <div class="p-5 bg-gradient-to-br from-dev-light/80 to-white border-b border-dev-border/40">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center space-x-3">
-                            <div class="p-2.5 bg-dev text-white rounded-xl shadow-md shadow-dev/20">
-                                <i data-lucide="code" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <span class="text-xs font-bold uppercase tracking-wider text-dev-dark">Célula 3</span>
-                                <h3 class="text-lg font-bold text-slate-900">Desarrollo Software & BD Local</h3>
-                            </div>
-                        </div>
-                        <span class="px-2.5 py-1 text-xs font-semibold bg-dev-light text-dev-dark rounded-full border border-dev-border">
-                            2 Est. Devs
-                        </span>
-                    </div>
-                    <p class="text-xs text-slate-600 mt-2">Creación de la base de datos ejecutable, parser de Google Sheets y visor local interactivo.</p>
-                </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-code text-purple-400"></i>
+                                Desarrollo Local y Base de Datos
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-1">Transformación de datos y armado del ejecutable offline.</p>
+                        </div>
 
-                <!-- Card Body / Task List -->
-                <div class="p-5 flex-grow space-y-3">
-                    <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
-                        <span>ACTIVIDADES PRINCIPALES</span>
-                        <span class="cell-counter font-mono" id="counter-dev">0/6</span>
-                    </div>
+                        <!-- Perfiles -->
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 space-y-1">
+                            <p class="text-xs font-semibold text-purple-300">Composición del Grupo:</p>
+                            <p class="text-xs text-slate-300"> • <strong>2 Estudiantes Programadores</strong> (Dev & QA)</p>
+                        </div>
 
-                    <ul class="space-y-2.5" id="list-dev">
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('dev-1')">
-                            <input type="checkbox" id="dev-1" class="task-checkbox mt-0.5 h-4 w-4 text-dev rounded border-slate-300 focus:ring-dev cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Diseño de la estructura del esquema de Base de Datos Local (JSON / SQLite).</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('dev-2')">
-                            <input type="checkbox" id="dev-2" class="task-checkbox mt-0.5 h-4 w-4 text-dev rounded border-slate-300 focus:ring-dev cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Desarrollo del script / parser para lectura e importación desde Google Sheets.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('dev-3')">
-                            <input type="checkbox" id="dev-3" class="task-checkbox mt-0.5 h-4 w-4 text-dev rounded border-slate-300 focus:ring-dev cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Construcción de la interfaz de usuario ejecutable offline (escritorio).</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('dev-4')">
-                            <input type="checkbox" id="dev-4" class="task-checkbox mt-0.5 h-4 w-4 text-dev rounded border-slate-300 focus:ring-dev cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Integración del plano 2D interactivo con detección de eventos sobre Hotspots.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('dev-5')">
-                            <input type="checkbox" id="dev-5" class="task-checkbox mt-0.5 h-4 w-4 text-dev rounded border-slate-300 focus:ring-dev cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Implementación de buscador interno y filtrado de componentes por criticidad.</span>
-                        </li>
-                        <li class="task-item flex items-start space-x-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer" onclick="toggleTask('dev-6')">
-                            <input type="checkbox" id="dev-6" class="task-checkbox mt-0.5 h-4 w-4 text-dev rounded border-slate-300 focus:ring-dev cursor-pointer" onchange="updateProgress()">
-                            <span class="text-xs font-medium text-slate-700 leading-relaxed">Pruebas de funcionamiento offline y corrección de bugs reportados por QA.</span>
-                        </li>
-                    </ul>
-                </div>
+                        <!-- Tareas -->
+                        <div class="space-y-2 pt-2">
+                            <p class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Bloque de Actividades:</p>
+                            <ul class="space-y-2 text-xs text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-purple-400 mt-0.5"></i>
+                                    <span>Diseñar la estructura de base de datos local (JSON/SQLite) consumiendo las planillas de Drive.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-purple-400 mt-0.5"></i>
+                                    <span>Programar la aplicación ejecutable de escritorio con la vista 2D interactiva.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-check text-purple-400 mt-0.5"></i>
+                                    <span>Armar sistema de reportes de fallas mediante Google Forms y control de pruebas QA.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-                <!-- Card Footer -->
-                <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                    <span 
+                    <div class="mt-6 pt-4 border-t border-slate-700/50 flex justify-between items-center text-xs text-slate-400">
+                        <span><i class="fa-solid fa-folder text-amber-400 mr-1"></i> Drive: <code>03_DESARROLLO_Y_QA</code></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- HOJA DE RUTA / CRONOGRAMA SIMPLIFICADO -->
+        <section class="space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-timeline text-indigo-400"></i>
+                    Cronograma Global por Fases
+                </h2>
+                <p class="text-sm text-slate-400">Flujo secuencial de trabajo estimado para la entrega del producto ejecutable.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="p-5 bg-slate-800/30 border border-slate-800 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-blue-400">FASE 1</span>
+                        <span class="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Semanas 1-3</span>
+                    </div>
+                    <h4 class="font-semibold text-sm text-white">Relevamiento & Drive</h4>
+                    <p class="text-xs text-slate-400">Limpieza de planos en CAD y carga completa de datos clínicos, normas y riesgos en Sheets.</p>
+                </div>
+
+                <div class="p-5 bg-slate-800/30 border border-slate-800 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-purple-400">FASE 2</span>
+                        <span class="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Semanas 4-6</span>
+                    </div>
+                    <h4 class="font-semibold text-sm text-white">Integración & Dev</h4>
+                    <p class="text-xs text-slate-400">Conversión de datos a base local y ensamblado del prototipo ejecutable 2D interactivo.</p>
+                </div>
+
+                <div class="p-5 bg-slate-800/30 border border-slate-800 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-emerald-400">FASE 3</span>
+                        <span class="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Semanas 7-8</span>
+                    </div>
+                    <h4 class="font-semibold text-sm text-white">Pruebas & Ajustes</h4>
+                    <p class="text-xs text-slate-400">Validación de navegación offline, pruebas con Google Forms y corrección de inconsistencias.</p>
+                </div>
+
+                <div class="p-5 bg-slate-800/30 border border-slate-800 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-amber-400">FASE 4</span>
+                        <span class="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded">Semanas 9-10</span>
+                    </div>
+                    <h4 class="font-semibold text-sm text-white">Plantillas & Escalabilidad</h4>
+                    <p class="text-xs text-slate-400">Documentación y plantillas duplicables para migración a 3D y nuevas salas del hospital.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+        <p>Plataforma Hospital Virtual • Gestión de Proyectos de Ingeniería Biomédica & Infraestructura</p>
+    </footer>
+
+</body>
+</html>
